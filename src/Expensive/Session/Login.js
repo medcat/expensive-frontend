@@ -11,6 +11,11 @@ export default class Login extends React.Component {
     this.state = {email: "", password: "", status: "normal"};
   }
 
+  componentWillMount() {
+    if(!authentication.token) return;
+    this.props.router.push("/");
+  }
+
   handleSubmit() {
     event.preventDefault();
     if(this.state.status == "loading")
@@ -21,7 +26,13 @@ export default class Login extends React.Component {
     authentication
       .attemptLogin(this.state.email, this.state.password)
       .then(() => this.props.router.push("/"))
-      .fail(() => this.setState({ status: "error" }));
+      .catch(({response}) => {
+        if(response && response.status == 401) {
+          this.setState({ status: "error" });
+        } else {
+          this.setState({ status: "critical" });
+        }
+      });
   }
 
   handleUpdate(event) {

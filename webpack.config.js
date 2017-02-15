@@ -2,12 +2,12 @@ var path = require("path");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var webpack = require("webpack");
-var extractSass = new ExtractTextPlugin("assets/style.css");
+var extractSass = new ExtractTextPlugin("assets/[chunkhash].style.css");
 
 module.exports = {
-  entry: "index.js",
+  entry: ["whatwg-fetch", "index.js"],
   output: {
-    filename: "assets/main.js",
+    filename: "assets/[chunkhash].[name].js",
     path: path.resolve(__dirname, "build"),
     publicPath: "/"
   },
@@ -42,6 +42,9 @@ module.exports = {
           outputPath: "assets/images/"
         }
       }
+    }, {
+      test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+      loader: "file-loader"
     }]
   },
 
@@ -54,7 +57,10 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({ inject: true, template: "src/index.html" }),
-    new webpack.ProvidePlugin({ $: "jquery" }),
+    new webpack.ProvidePlugin({
+      Promise: "promise-polyfill",
+      _: "lodash"
+    }),
     extractSass
   ],
 

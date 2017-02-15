@@ -1,14 +1,12 @@
 .user-login, .user-register {
   &-background {
     $blur: 1em;
-    background-image: url("images/pineapple-desk.jpg");
+    background-image: url("images/pineapple-desk-blur.jpg");
     background-size: cover;
     background-position: center center;
     position: absolute;
-    margin: ($blur * -2);
     left: 0; right: 0; top: 0; bottom: 0;
     z-index: -1;
-    filter: blur($blur);
     overflow: hidden;
   }
 }
@@ -44,6 +42,10 @@
     padding-top: 0.25em;
     margin-top: 0.75em;
     border-top: 1px solid $dark-main-color;
+
+    :first-child {
+      margin-left: 0 !important;
+    }
   }
 
   .errors {
@@ -53,6 +55,12 @@
     text-shadow: $tertiary-text-shadow-color 0 1px 1px;
     padding: 0.5em;
     border-radius: 0.125em;
+  }
+
+  .errors-item {
+    list-style-type: none;
+
+    &:before { content: " \2013 "; }
   }
 
   input, button, .checkbox-label, &-input {
@@ -82,6 +90,7 @@
   #{$all-button-inputs} {
     @extend %transition;
     padding: 0.75em 1em;
+    margin: 0.25em;
     cursor: pointer;
 
     &:hover {
@@ -97,13 +106,25 @@
     color: $font-color;
     text-decoration: none;
     padding: 0.75em 1em;
-    margin: 0 0.25em;
+    margin: 0.25em;
     display: inline-block;
     border-radius: 0.125em;
     border: 1px solid transparent;
 
     &:hover {
       background-color: $dark-main-color;
+    }
+  }
+
+  &-link-primary {
+    background-color: $dark-main-color;
+
+    &:hover {
+      background-color: $darker-main-color;
+    }
+
+    &:active {
+      background-color: $darkest-main-color;
     }
   }
 }

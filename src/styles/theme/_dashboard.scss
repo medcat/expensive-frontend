@@ -1,91 +1,130 @@
 @import "dashboard/sidebar";
 
-.dashboard-content {
-  @include span-columns(12 of 16);
-}
+.dashboard {
+  &-content {
+    @include span-columns(12 of 16);
+  }
 
-.dashboard-topfigure {
-  background-color: $main-color;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-radius: 0.25em;
-  box-shadow: $main-shadow;
-  color: $main-font-color;
-  text-shadow: $main-text-shadow-color 0 1px 1px;
-  @include span-columns(12 of 12);
+  &-background {
+    $blur: 1em;
+    background-image: url("images/wood-desk-blur.jpg");
+    background-size: cover;
+    background-position: center center;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    z-index: -1;
+    overflow: hidden;
+  }
 
-  &-item {
-    @include span-columns(3 of 12);
+  &-fail {
+    background-color: $tertiary-color;
+    text-shadow: $tertiary-text-shadow-color 0 1px 1px;
+    color: $tertiary-font-color;
+    padding: 1em;
+    border-radius: 0.125em;
+    box-shadow: $main-shadow;
+  }
 
-    &-figure {
-      font-weight: bold;
-      font-size: 1.2em;
+  &-topfigure {
+    background-color: $main-color;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 0.25em;
+    box-shadow: $main-shadow;
+    color: $main-font-color;
+    text-shadow: $main-text-shadow-color 0 1px 1px;
+    @include span-columns(12 of 12);
+
+    &-item {
+      @include span-columns(3 of 12);
+
+      &-figure {
+        font-weight: bold;
+        font-size: 1.2em;
+      }
     }
   }
-}
 
-.dashboard-graph {
-  @include span-columns(12 of 12);
-  background-color: $dark-background-color;
-  border-radius: 0.25em;
-  padding: 1em;
-  margin-bottom: 1em;
-  box-shadow: $main-shadow;
-  text-shadow: $main-text-shadow-color 0 1px 1px;
-}
-
-.dashboard-expenses, .dashboard-reports {
-  @include span-columns(8 of 12);
-  background-color: $dark-background-color;
-  border-radius: 0.25em;
-  padding: 1em;
-  margin-bottom: 1em;
-  box-shadow: $main-shadow;
-  text-shadow: $main-text-shadow-color 0 1px 1px;
-
-  &-title {
-    margin: 0;
-    padding: 0;
+  &-graph {
+    @include span-columns(12 of 12);
+    background-color: $main-color;
+    border-radius: 0.25em;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: $main-shadow;
+    text-shadow: $main-text-shadow-color 0 1px 1px;
+    color: $main-font-color;
   }
 
-  &-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
+  &-expenses, &-reports {
+    @include span-columns(8 of 12);
+    background-color: $main-color;
+    border-radius: 0.25em;
+    padding: 1em;
+    margin-bottom: 1em;
+    box-shadow: $main-shadow;
+    text-shadow: $main-text-shadow-color 0 1px 1px;
+    color: $main-font-color;
 
-  &-item {
-    &-datetime { color: #666; padding: 0 0.5em;}
-    &-description {
+    &-title {
+      margin: 0;
+      padding: 0;
+      padding-bottom: 0.25em;
+      font-size: 1.25em;
+    }
+
+    &-list {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-item {
+      padding: 0.3em 0;
+      @include clearfix;
+      border-top: 1px solid $light-dark-main-color;
+
+      &:last-child {
+        border-bottom: 1px solid $light-dark-main-color;
+      }
+
+      &-datetime {
+        @include span-columns(4 of 16);
+        text-align: right;
+      }
+      &-amount {
+        @include span-columns(2 of 16);
+      }
+      &-datetime, &-amount, &-description {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      &-description { @include span-columns(10 of 16); }
+    }
+
+    &-link {
       display: block;
-      width: 60%;
+      padding: 0.5em;
+      color: #444;
+      text-decoration: none;
+      border-bottom: 1px solid $light-darker-background-color;
+
+      &:hover { background-color: $darker-background-color; }
+
+    }
+
+    &-item:last-child &-link { border-bottom: none; }
+  }
+
+  &-reports {
+    @include span-columns(4 of 12);
+
+    &-link {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      float: right;
     }
-  }
-
-  &-link {
-    display: block;
-    padding: 0.5em;
-    color: #444;
-    text-decoration: none;
-    border-bottom: 1px solid $light-darker-background-color;
-
-    &:hover { background-color: $darker-background-color; }
-
-  }
-
-  &-item:last-child &-link { border-bottom: none; }
-}
-
-.dashboard-reports {
-  @include span-columns(4 of 12);
-
-  &-link {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 }

@@ -16,6 +16,6 @@ module.exports = {
   ],
   "rules": { "no-console": "off" },
   "globals": {
-    "skrollr": false
+    "_": false
   }
 }

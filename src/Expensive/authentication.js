@@ -1,34 +1,47 @@
-import Promise from "promise-polyfill";
+import jwtDecode from "jwt-decode";
+import {server} from "Expensive/server";
 
 let authentication = {
   hasToken() {
     return !!this.token;
   },
 
-  authenticatedRequest(options) {
-    let passed = Object.assign({}, options,
-      { headers: { "Authorization": "Bearer " + this.token} });
+  authorizationHeader() {
+    return { "Authorization": `Bearer ${this.token}` };
+  },
 
-    return $.ajax(passed);
+  performAuthorizedGet(path, headers = {}) {
+    if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
+    let actualHeaders = Object.assign({}, headers, this.authorizationHeader());
+    return server.performGet(path, actualHeaders);
+  },
+
+  performAuthorizedPost(path, data, headers = {}) {
+    if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
+    let actualHeaders = Object.assign({}, headers, this.authorizationHeader());
+    return server.performPost(path, data, actualHeaders);
   },
 
   renewToken() {
     if(!this.hasToken()) { return Promise.reject(false); }
-    return this.authenticatedRequest({
-      url: "api/session/renew.json",
-      headers: { "Authenticate": "Bearer " + this.token },
-      timeout: 200,
-    }).fail(() => this.clearToken());
+    return server
+        .performGet("api/session/renew.json", this.authorizationHeader())
+        .catch(() => this.clearToken());
+  },
+
+  attemptRegistration(email, password, confirmation) {
+    let data = { user: { email, password,
+      password_confirmation: confirmation } };
+    return server
+        .performPost("/api/users.json", data)
+        .then(({data}) => this.token = data.token);
   },
 
   attemptLogin(email, password) {
-    return $.ajax({
-      type: "POST",
-      url: "/api/session.json",
-      data: { session: { email, password } }
-    }).then((data) => {
-      this.token = data.token;
-    });
+    let data = { session: { email, password } };
+    return server
+        .performPost("/api/session.json", data)
+        .then(({data}) => this.token = data.token);
   },
 
   clearToken() {
@@ -37,13 +50,16 @@ let authentication = {
     }
 
     delete this._token;
+    delete this._tokenData;
+  },
+
+  get tokenData() {
+    this._tokenData = this._tokenData || jwtDecode(this.token) || {};
+    return this._tokenData;
   },
 
   set token(token) {
-    if(window.localStorage) {
-      localStorage.setItem("token", token);
-    }
-
+    if(window.localStorage) { localStorage.setItem("token", token); }
     this._token = token;
   },
 

@@ -19,8 +19,46 @@ a, %transition {
   transition: all 0.125s ease-in-out;
 }
 
-a { cursor: pointer; }
+a, time { cursor: pointer; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Bree Serif", serif;
+}
+
+.spinner {
+  color: $main-font-color;
+  font-size: 4em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+
+  &-placeholder {
+    visibility: hidden;
+  }
+
+  &-message {
+    font-size: 0.25em;
+    position: fixed;
+    top: 50%;
+    width: 100%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-left: -2em;
+    text-shadow: rgba(68, 68, 68, 0.7) 1px 2px 1px;
+    margin-top: 0.5em;
+  }
+
+  i {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -1em;
+    margin-left: -1em;
+    text-shadow: rgba(68, 68, 68, 0.7) 0 0 3px;
+  }
 }

@@ -7,6 +7,7 @@ export default class Modal extends React.Component {
       <form className="user-form modal" onSubmit={this.props.onSubmit}>
         <h1 className="user-form-title">Login</h1>
         {this.props.status == "error" ? this.errorMessage() : ""}
+        {this.props.status == "critical" ? this.criticalMessage() : ""}
         <input className="user-form-input" name="email" type="email"
           placeholder="email" onChange={this.props.onUpdate}
           disabled={this.props.status == "loading"} />
@@ -27,6 +28,14 @@ export default class Modal extends React.Component {
     return (
       <div className="errors">
         Whoa!  That didn't seem to be right.  Let's try again...
+      </div>
+    );
+  }
+
+  criticalMessage() {
+    return (
+      <div className="errors">
+        There seems to have been some sort of error... Maybe try again?
       </div>
     );
   }
