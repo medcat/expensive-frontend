@@ -1,10 +1,10 @@
 .dashboard-sidebar {
   @include span-columns(4);
-  background-color: $under-color;
-  color: $font-color;
-  text-shadow: $under-text-shadow-color 0 1px 1px;
+  background-color: $main-color;
+  color: $main-font-color;
+  text-shadow: $main-text-shadow-color 0 1px 1px;
   border-radius: 0.25em;
-  box-shadow: $under-shadow;
+  box-shadow: $main-shadow;
 
   &-list {
     list-style-type: none;
@@ -24,14 +24,14 @@
 
   &-item {
     display: block;
-    border-top: 1px solid $light-dark-under-color;
+    border-top: 1px solid $light-dark-main-color;
     &-link {
       display: block;
       padding: 0.5em 1em;
       text-decoration: none;
-      color: $font-color;
+      color: $main-font-color;
 
-      &:hover { background-color: $dark-under-color; }
+      &:hover { background-color: $dark-main-color; }
 
       i { width: 1em; margin-right: 0.5em; text-align: center; }
     }

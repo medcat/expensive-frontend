@@ -1,17 +1,19 @@
 @import "bourbon/bourbon";
 @import "neat/neat";
 @import "theme/variables";
+@import "theme/placeholders";
 @import "theme/alert";
 @import "theme/auth";
 @import "theme/content";
 @import "theme/dashboard";
 @import "theme/header";
 @import "theme/hero-features";
+@import "theme/datetime";
 
 body {
   font-family: "Lato", sans-serif;
   overflow-x: hidden;
-  color: #444;
+  color: $background-font-color;
   line-height: 1.5;
 }
 

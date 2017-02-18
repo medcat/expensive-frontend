@@ -2,6 +2,7 @@
   background-image: url("images/desk.jpg");
   background-position: center;
   background-size: cover;
+  background-color: $under-color;
   min-height: 80vh;
   position: absolute;
   top: 3em;
@@ -10,14 +11,14 @@
   z-index: -1;
   padding-top: 10vh;
   text-align: center;
-  box-shadow: inline $header-shadow;
+  box-shadow: $under-inverted-shadow;
   margin-bottom: 20em;
 
   &-header, &-tagline {
     padding: 0;
     margin: 0;
-    text-shadow: rgba($header-text-shadow-color, 0.7) 1px 2px 5px;
-    color: $font-color;
+    text-shadow: rgba($under-text-shadow-color, 0.7) 1px 2px 5px;
+    color: $under-font-color;
   }
   &-header { font-size: 3em; }
   &-tagline { font-size: 1.5em; }
@@ -25,14 +26,14 @@
   &-seperator {
     border: none;
     max-width: 30em;
-    border-top: 1px dashed rgba($font-color, 0.3);
-    border-bottom: 1px dashed rgba($header-text-shadow-color, 0.21);
+    border-top: 1px dashed rgba($under-font-color, 0.3);
+    border-bottom: 1px dashed rgba($under-text-shadow-color, 0.21);
   }
 
 }
 
 .minihero {
-  background-image: image-url("background/pineapple-desk.jpg");
+  background-image: url("images/pineapple-desk.jpg");
   background-position: center;
   background-size: cover;
   min-height: 20vh;
@@ -41,7 +42,7 @@
   left: 0;
   right: 0;
   z-index: -1;
-  box-shadow: inline $header-shadow;
+  box-shadow: $under-inverted-shadow;
 
   &-after {
     margin-top: 20vh;

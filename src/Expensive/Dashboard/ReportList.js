@@ -2,11 +2,11 @@ import React from "react";
 import Spinner from "Expensive/Spinner";
 import Failure from "Expensive/Dashboard/Failure";
 import Pagination from "Expensive/Dashboard/Pagination";
-import Expense from "Expensive/Dashboard/ExpenseList/Expense";
-import NewExpense from "Expensive/Dashboard/ExpenseList/NewExpense";
+import Report from "Expensive/Dashboard/ReportList/Report";
+import NewReport from "Expensive/Dashboard/ReportList/NewReport";
 import {authentication} from "Expensive/authentication";
 
-export default class ExpenseList extends React.Component {
+export default class ReportList extends React.Component {
   constructor(props) {
     super(props);
 
@@ -28,7 +28,7 @@ export default class ExpenseList extends React.Component {
   }
 
   handleChangePage(event, page) {
-    this.props.router.push(`/dashboard/expenses?page=${page}`);
+    this.props.router.push(`/dashboard/reports?page=${page}`);
     this.setState({ page });
     this._loadData(page);
   }
@@ -50,9 +50,9 @@ export default class ExpenseList extends React.Component {
       <div className="dashboard-expense-list">
         <Pagination pages={this.state.pages} page={this.state.page}
           onChangePage={this.handleChangePage} />
-        <NewExpense onRefresh={this.handleRefresh} />
-        {_.map(this.state.expenses, (e) => {
-          return (<Expense key={e.id} data={e} onRefresh={this.handleRefresh} />);
+        <NewReport onRefresh={this.handleRefresh} />
+        {_.map(this.state.reports, (e) => {
+          return (<Report key={e.id} data={e} onRefresh={this.handleRefresh} />);
         })}
         <Pagination pages={this.state.pages} page={this.state.page}
           onChangePage={this.handleChangePage} />
@@ -60,18 +60,14 @@ export default class ExpenseList extends React.Component {
     );
   }
 
-  _renderCreateExpense() {
-
-  }
-
   _loadData(page = this.state.page, shouldLoadAll = this.shouldLoadAll) {
     const all = shouldLoadAll ? "&all=true" : "";
     authentication
-      .performAuthorizedGet(`/api/expenses.json?page=${page}${all}`)
+      .performAuthorizedGet(`/api/reports.json?page=${page}${all}`)
       .then(({data: result}) => {
         this.setState({
           which: "normal",
-          expenses: result.data,
+          reports: result.data,
           pages: result.meta.pages
         });
       })

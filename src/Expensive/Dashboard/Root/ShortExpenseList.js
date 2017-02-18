@@ -19,7 +19,7 @@ export default class ShortExpenseList extends React.Component {
         <span className="dashboard-expenses-item-description">{description}</span>
         <time className="dashboard-expenses-item-datetime"
           dateTime={time.format()} name={time.format("LLLL")}
-          >{time.toNow()}</time>
+          >{time.fromNow()}</time>
       </li>
     );
   }

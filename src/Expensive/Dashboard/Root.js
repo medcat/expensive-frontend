@@ -3,39 +3,31 @@ import {AreaChart} from "react-chartkick";
 import Topfigure from "Expensive/Dashboard/Root/Topfigure";
 import ShortExpenseList from "Expensive/Dashboard/Root/ShortExpenseList";
 import Spinner from "Expensive/Spinner";
+import Failure from "Expensive/Dashboard/Failure";
 
 import {authentication} from "Expensive/authentication";
 
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { which: "loading" };
   }
 
-  componentWillMount() {
-    authentication
-      .performAuthorizedGet("/api/dashboard.json")
-      .then(({data: result}) => {
-        this.setState({
-          which: "normal",
-          topfigure: result.data.topfigure,
-          expenses: result.data.expenses,
-          graph: result.data.graph
-        });
-      })
-      .catch((v) => {
-        console.warn("fail");
-        console.error(v);
-      });
+  get shouldLoadAll() { return !!this.props.location.query.all; }
+  componentWillMount() { this._loadData(); }
+  componentWillReceiveProps(nextProps) {
+    const all = !!nextProps.location.query.all;
+    if(all != this.shouldLoadAll) {
+      this._loadData(all);
+    }
   }
 
   render() {
     return (
       <div className="action-dashboard-root">
-        {this.state.which == "loading" ?
-          <Spinner /> :
-        this.state.which == "fail" ?
-          this.renderFail() :
+        {this.state.which == "loading" ? <Spinner /> :
+        this.state.which == "failed" ? <Failure /> :
         this.renderNormal()}
       </div>
     );
@@ -60,11 +52,25 @@ export default class Root extends React.Component {
     );
   }
 
-  renderFail() {
-    return (
-      <div className="dashboard-fail">
-        Oops, that's embarassing...  There was an error.  Maybe try again?
-      </div>
-    );
+  _loadData(shouldLoadAll = this.shouldLoadAll) {
+    const all = shouldLoadAll ? "?all=true" : "";
+    authentication
+      .performAuthorizedGet(`/api/dashboard.json${all}`)
+      .then(({data: result}) => {
+        this.setState({
+          which: "normal",
+          topfigure: result.data.topfigure,
+          expenses: result.data.expenses,
+          graph: result.data.graph
+        });
+      })
+      .catch((...a) => {
+        this.setState({ which: "failed" });
+        return Promise.reject(...a);
+      });
   }
+}
+
+Root.propTypes = {
+  location: React.PropTypes.object.isRequired
 }

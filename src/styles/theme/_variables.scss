@@ -2,42 +2,65 @@ $grid-columns: 16 !global;
 // $visual-grid: true !global;
 // $visual-grid-index: front !global;
 
+$border-radius: 0.25em;
+
 $main-color: #327ccb;
+// $under-color: #025d8c;
+$under-color: darken($main-color, 5%);
+$secondary-color: #00b057;
+$tertiary-color: #9d2e31;
+// $background-color: #ddd;
+$background-color: lighten(#556270, 50%);
+
+// This is needed because this version of Sass doesn't have variable name
+// interpolation.
+// COLOR MODIFICATIONS
 $light-dark-main-color: darken($main-color, 5%);
 $dark-main-color: darken($main-color, 10%);
+$light-darker-main-color: darken($main-color, 15%);
 $darker-main-color: darken($main-color, 20%);
 $darkest-main-color: darken($main-color, 30%);
-$font-color: #f7efce;
-$main-font-color: #f7efce;
-$main-font-color: $font-color;
-$main-text-shadow-color: rgba(#444, 0.3);
-$main-shadow: black 0 3px 3px -3px;
 
-// $under-color: #303048;
-$under-color: $main-color;
 $light-dark-under-color: darken($under-color, 5%);
 $dark-under-color: darken($under-color, 10%);
-$under-text-color: $font-color;
-$under-shadow: black 0 3px 3px -3px;
-$under-text-shadow-color: rgba(#444, 0.3);
+$light-darker-under-color: darken($under-color, 15%);
+$darker-under-color: darken($under-color, 20%);
+$darkest-under-color: darken($under-color, 30%);
 
-$secondary-color: #00B057;
 $light-dark-secondary-color: darken($secondary-color, 5%);
 $dark-secondary-color: darken($secondary-color, 10%);
-$secondary-font-color: #f7ceef;
-$secondary-text-shadow-color: rgba(#444, 0.3);
+$light-darker-secondary-color: darken($secondary-color, 15%);
+$darker-secondary-color: darken($secondary-color, 20%);
+$darkest-secondary-color: darken($secondary-color, 30%);
 
-$tertiary-color: #9D2E31;
+$light-dark-tertiary-color: darken($tertiary-color, 5%);
 $dark-tertiary-color: darken($tertiary-color, 10%);
-$light-tertiary-color: lighten($tertiary-color, 10%);
-$tertiary-font-color: #f7efce;
-$tertiary-text-shadow-color: rgba(#444, 0.3);
+$light-darker-tertiary-color: darken($tertiary-color, 15%);
+$darker-tertiary-color: darken($tertiary-color, 20%);
+$darkest-tertiary-color: darken($tertiary-color, 30%);
 
-$header-text-shadow-color: rgba(#444, 0.3);
-$header-shadow: black 0 0 3px;
-
-$background-color: #ddd;
-$light-dark-background-color: darken(#ddd, 5%);
-$dark-background-color: darken(#ddd, 10%);
+$light-dark-background-color: darken($background-color, 5%);
+$dark-background-color: darken($background-color, 10%);
 $light-darker-background-color: darken($background-color, 15%);
 $darker-background-color: darken($background-color, 20%);
+$darkest-background-color: darken($background-color, 30%);
+// END COLOR MODIFICATIONS
+
+$main-font-color: #f7efce;
+$main-text-shadow-color: rgba(#111, 0.3);
+$main-shadow: black 0 3px 3px -3px;
+$under-inverted-shadow: black 0 -3px 3px -3px;
+
+$under-font-color: $main-font-color;
+$under-text-shadow-color: $main-text-shadow-color;
+$under-shadow: inset black 0 3px 3px -3px;
+$under-inverted-shadow: inset black 0 -3px 3px -3px;
+
+$secondary-font-color: #f7ceef;
+$secondary-text-shadow-color: $main-text-shadow-color;
+
+$tertiary-font-color: #f7efce;
+$tertiary-text-shadow-color: $main-text-shadow-color;
+
+$background-font-color: #444;
+$background-text-shadow-color: $main-text-shadow-color;

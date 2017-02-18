@@ -13,7 +13,7 @@ export default class Login extends React.Component {
 
   componentWillMount() {
     if(!authentication.token) return;
-    this.props.router.push("/");
+    this.props.router.replace("/");
   }
 
   handleSubmit() {
@@ -25,7 +25,7 @@ export default class Login extends React.Component {
 
     authentication
       .attemptLogin(this.state.email, this.state.password)
-      .then(() => this.props.router.push("/"))
+      .then(() => this.props.router.push("/dashboard"))
       .catch(({response}) => {
         if(response && response.status == 401) {
           this.setState({ status: "error" });

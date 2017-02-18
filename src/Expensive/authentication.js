@@ -12,21 +12,36 @@ let authentication = {
 
   performAuthorizedGet(path, headers = {}) {
     if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
-    let actualHeaders = Object.assign({}, headers, this.authorizationHeader());
+    let actualHeaders = _.assign({}, headers, this.authorizationHeader());
     return server.performGet(path, actualHeaders);
   },
 
   performAuthorizedPost(path, data, headers = {}) {
     if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
-    let actualHeaders = Object.assign({}, headers, this.authorizationHeader());
+    let actualHeaders = _.assign({}, headers, this.authorizationHeader());
     return server.performPost(path, data, actualHeaders);
   },
 
+  performAuthorizedPut(path, data, headers = {}) {
+    if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
+    let actualHeaders = _.assign({}, headers, this.authorizationHeader());
+    return server.performPut(path, data, actualHeaders);
+  },
+
+  performAuthorizedDelete(path, headers = {}) {
+    if(!this.hasToken()) { return Promise.reject(new Error("No token!")); }
+    let actualHeaders = _.assign({}, headers, this.authorizationHeader());
+    return server.performDelete(path, actualHeaders);
+  },
+
   renewToken() {
-    if(!this.hasToken()) { return Promise.reject(false); }
+    if(!this.hasToken()) { return Promise.resolve(undefined); }
     return server
         .performGet("api/session/renew.json", this.authorizationHeader())
-        .catch(() => this.clearToken());
+        .catch((...a) => {
+          this.clearToken();
+          return Promise.reject(...a);
+        });
   },
 
   attemptRegistration(email, password, confirmation) {

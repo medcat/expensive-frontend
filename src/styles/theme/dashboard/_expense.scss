@@ -1,0 +1,167 @@
+.dashboard-expense {
+  @include clearfix;
+
+  background-color: $main-color;
+  padding: 1em 0;
+  margin: 0.75em 0;
+  color: $main-font-color;
+  text-shadow: $main-text-shadow-color 0 1px 1px;
+  box-shadow: $main-shadow;
+  border-radius: $border-radius;
+
+  &-list > :first-child {
+    margin-top: 0;
+  }
+
+  &-amount, &-description, &-time, &-options {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &-amount {
+    @include span-columns(2 of 16);
+    text-align: center;
+  }
+
+  &-description {
+    @include span-columns(10 of 16);
+    white-space: normal;
+    overflow: visible;
+  }
+
+  &-time {
+    @include span-columns(2 of 16);
+    text-align: center;
+  }
+
+  &-options {
+    @include span-columns(2 of 16);
+    @include omega;
+    text-align: center;
+  }
+
+  &-options a {
+    margin: 0 0.5em;
+    color: mix($main-color, $main-font-color, 50%);
+
+    &:hover {
+      color: $main-font-color;
+    }
+  }
+
+  &-loading {
+    color: mix($main-color, $main-font-color, 50%);
+    opacity: 0.5;
+  }
+
+  &-loading &-options a, &-loading &-options a:hover {
+    color: mix($main-color, $main-font-color, 75%);
+  }
+
+  &-input {
+    padding: { left: 1em; right: 1em; }
+    @include clearfix;
+
+    &-amount-currency, &-amount-value, &-description-value, &-time-picker input {
+      @extend %input;
+    }
+
+    &-amount {
+      @include span-columns(4 of 16);
+
+      &-currency {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        width: 40%;
+      }
+
+      &-value {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        width: 60%;
+      }
+    }
+
+    &-description {
+      @include span-columns(8 of 16);
+
+      &-value {
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        height: 2.625em;
+        resize: none;
+      }
+    }
+
+    &-time {
+      @include span-columns(4 of 16);
+      @include omega;
+
+      &-picker input {
+        width: 100%;
+      }
+    }
+  }
+
+  &-form {
+    @include span-columns(16 of 16);
+    background-color: $under-color;
+    color: $under-font-color;
+    box-shadow: $under-shadow;
+
+    padding: 1em;
+    margin-top: 1em;
+    margin-bottom: -1em;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+    &-message {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    &-set {
+      @include clearfix;
+    }
+
+    .errors { @extend %errors-list; }
+    .errors-item { @extend %errors-list-item; }
+
+    &-actions {
+      @include clearfix;
+      margin: 1em 0 { bottom: 0 };
+      padding-top: 0.25em;
+      border-top: 1px solid $light-dark-under-color;
+
+      :first-child {
+        margin-left: 0;
+      }
+    }
+
+    &-action {
+      @extend %input;
+      padding: 0.75em 1em;
+      margin: 0.25em;
+      background-color: $light-dark-under-color;
+      border-radius: $border-radius;
+      display: inline-block;
+
+      &:hover { background-color: $dark-under-color; }
+      &-primary {
+        background-color: $secondary-color;
+        &:hover { background-color: $light-dark-secondary-color; }
+      }
+      &-warning {
+        background-color: $tertiary-color;
+        &:hover { background-color: $light-dark-tertiary-color; }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@ export default class Register extends React.Component {
 
   componentWillMount() {
     if(!authentication.token) return;
-    this.props.router.push("/");
+    this.props.router.replace("/");
   }
 
   handleSubmit(event) {
@@ -27,8 +27,7 @@ export default class Register extends React.Component {
       .then(() => this.setState({ status: "success" }))
       .catch(({data, response}) => {
         if(response.status == 422) {
-          this.setState({ status: "error",
-            errors: data.errors });
+          this.setState({ status: "error", errors: data.errors });
         } else {
           this.setState({ status: "critical" });
         }

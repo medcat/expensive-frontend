@@ -1,3 +1,5 @@
+@import "dashboard/expense";
+@import "dashboard/pagination";
 @import "dashboard/sidebar";
 
 .dashboard {
@@ -10,7 +12,7 @@
     background-image: url("images/wood-desk-blur.jpg");
     background-size: cover;
     background-position: center center;
-    position: absolute;
+    position: fixed;
     top: 0; left: 0; bottom: 0; right: 0;
     z-index: -1;
     overflow: hidden;
@@ -21,7 +23,7 @@
     text-shadow: $tertiary-text-shadow-color 0 1px 1px;
     color: $tertiary-font-color;
     padding: 1em;
-    border-radius: 0.125em;
+    border-radius: $border-radius;
     box-shadow: $main-shadow;
   }
 

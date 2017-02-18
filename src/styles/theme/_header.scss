@@ -1,6 +1,6 @@
 .header {
   background-color: $main-color;
-  color: $font-color;
+  color: $main-font-color;
   float: left;
   clear: both;
   position: fixed;
@@ -8,8 +8,8 @@
   top: 0;
   left: 0;
   right: 0;
-  box-shadow: $header-shadow;
-  text-shadow: $header-text-shadow-color 0px 1px 1px;
+  box-shadow: $main-shadow;
+  text-shadow: $main-text-shadow-color 0px 1px 1px;
 
   &-container {
     @include outer-container;
@@ -26,7 +26,7 @@
     &-link {
       display: inline-block;
       text-decoration: none;
-      color: $font-color;
+      color: $main-font-color;
     }
   }
 
@@ -34,13 +34,13 @@
     @include span-columns(7 of 16);
 
     &-link {
-      color: $font-color;
+      color: $main-font-color;
       float: right;
       text-decoration: none;
       padding: 0.75em 1em;
       margin: 0 0.125em;
       display: inline-block;
-      border-radius: 0.125em;
+      border-radius: $border-radius;
 
       &:hover {
         background-color: $dark-main-color;

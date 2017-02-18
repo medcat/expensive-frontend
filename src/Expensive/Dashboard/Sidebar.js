@@ -7,12 +7,14 @@ export default class Sidebar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { all: false };
+    this.state = { all: this.props.shouldLoadAll };
     this.handleAllToggle = this.handleAllToggle.bind(this);
   }
 
   handleAllToggle() {
-    this.setState({ all: !this.state.all });
+    const all = !this.state.all;
+    this.setState({ all });
+    this.props.onLoadAll(all);
   }
 
   render() {
@@ -22,22 +24,24 @@ export default class Sidebar extends React.Component {
           <img src={this.profileIcon()} className="dashboard-sidebar-profile-icon" />
         </div>
         <ul className="dashboard-sidebar-list">
-          {authentication.tokenData.admin ? this.adminAllLink() : "" }
-          <li className="dashboard-sidebar-item">
-            <Link to="/dashboard" className="dashboard-sidebar-item-link">
+          <li className="dashboard-sidebar-item" key="dashboard">
+            <Link to={this._link("/dashboard")}
+              className="dashboard-sidebar-item-link">
               <i className="fa fa-home" /> Home
             </Link>
           </li>
-          <li className="dashboard-sidebar-item">
-            <Link to="/dashboard/expenses" className="dashboard-sidebar-item-link">
+          <li className="dashboard-sidebar-item" key="expenses">
+            <Link to={this._link("/dashboard/expenses")}
+              className="dashboard-sidebar-item-link">
               <i className="fa fa-dollar" /> Expenses
             </Link>
           </li>
-          <li className="dashboard-sidebar-item">
-            <Link to="/dashboard/expenses" className="dashboard-sidebar-item-link">
+          <li className="dashboard-sidebar-item" key="reports">
+            <Link to="/dashboard/reports" className="dashboard-sidebar-item-link">
               <i className="fa fa-file-text" /> Reports
             </Link>
           </li>
+          {authentication.tokenData.admin ? this.adminAllLink() : "" }
         </ul>
       </aside>
     );
@@ -50,17 +54,32 @@ export default class Sidebar extends React.Component {
 
   adminAllLink() {
     let className = "dashboard-sidebar-item-link";
+    let iconName = "fa fa-archive";
 
     if(this.state.all) {
       className = className + " dashboard-sidebar-item-active";
     }
 
     return (
-      <li className="dashboard-sidebar-item">
+      <li className="dashboard-sidebar-item dashboard-sidebar-item-toggles"
+        key="admin-all">
         <a onClick={this.handleAllToggle} className={className}>
-          <i className="fa fa-plus-square" /> All
+          <i className={iconName} /> List all
         </a>
       </li>
     );
   }
+
+  _link(base) {
+    if(this.state.all) {
+      return `${base}?all=true`;
+    } else {
+      return base;
+    }
+  }
+}
+
+Sidebar.propTypes = {
+  onLoadAll: React.PropTypes.func.isRequired,
+  shouldLoadAll: React.PropTypes.bool
 }
