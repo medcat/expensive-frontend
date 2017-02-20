@@ -17,15 +17,7 @@ export default class ReportList extends React.Component {
     this.handleRefresh = this.handleRefresh.bind(this);
   }
 
-  get shouldLoadAll() { return !!this.props.location.query.all; }
   componentWillMount() { this._loadData(); }
-
-  componentWillReceiveProps(nextProps) {
-    const all = !!nextProps.location.query.all;
-    if(all != this.shouldLoadAll) {
-      this._loadData(this.state.page, all);
-    }
-  }
 
   handleChangePage(event, page) {
     this.props.router.push(`/dashboard/reports?page=${page}`);
@@ -52,7 +44,10 @@ export default class ReportList extends React.Component {
           onChangePage={this.handleChangePage} />
         <NewReport onRefresh={this.handleRefresh} />
         {_.map(this.state.reports, (e) => {
-          return (<Report key={e.id} data={e} onRefresh={this.handleRefresh} />);
+          return (
+            <Report key={e.id} data={e} onRefresh={this.handleRefresh}
+              router={this.props.router} showOpen={true} />
+          );
         })}
         <Pagination pages={this.state.pages} page={this.state.page}
           onChangePage={this.handleChangePage} />
@@ -60,10 +55,9 @@ export default class ReportList extends React.Component {
     );
   }
 
-  _loadData(page = this.state.page, shouldLoadAll = this.shouldLoadAll) {
-    const all = shouldLoadAll ? "&all=true" : "";
+  _loadData(page = this.state.page) {
     authentication
-      .performAuthorizedGet(`/api/reports.json?page=${page}${all}`)
+      .performAuthorizedGet(`/api/reports.json?page=${page}`)
       .then(({data: result}) => {
         this.setState({
           which: "normal",
@@ -78,7 +72,7 @@ export default class ReportList extends React.Component {
   }
 }
 
-ExpenseList.propTypes = {
+ReportList.propTypes = {
   location: React.PropTypes.object.isRequired,
   router: React.PropTypes.object.isRequired
 }

@@ -1,4 +1,4 @@
-.dashboard-expense {
+.dashboard-expense, .dashboard-report, .dashboard-report-item, .dashboard-filter {
   @include clearfix;
 
   background-color: $main-color;
@@ -13,7 +13,8 @@
     margin-top: 0;
   }
 
-  &-amount, &-description, &-time, &-options {
+  &-amount, &-description, &-time, &-options, &-currency, &-name, &-start,
+  &-stop {
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -23,6 +24,15 @@
   &-amount {
     @include span-columns(2 of 16);
     text-align: center;
+  }
+
+  &-currency {
+    @include span-columns(2 of 16);
+    text-align: center;
+  }
+
+  &-name, &-start, &-stop {
+    @include span-columns(4 of 16);
   }
 
   &-description {
@@ -61,11 +71,33 @@
   }
 
   &-input {
-    padding: { left: 1em; right: 1em; }
+    padding: { left: 1.5em; right: 1.5em; }
     @include clearfix;
 
-    &-amount-currency, &-amount-value, &-description-value, &-time-picker input {
+    &-amount-currency, &-currency-value, &-name-value, &-amount-value,
+    &-description-value, &-time-picker input, &-start-time-picker input,
+    &-stop-time-picker input {
       @extend %input;
+    }
+
+    &-currency {
+      @include span-columns(2 of 16);
+      &-value {
+        width: 100%;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+    }
+
+    &-name {
+      @include span-columns(6 of 16);
+      &-value { width: 100%; }
+    }
+
+    &-start, &-stop {
+      @include span-columns(4 of 16);
+      input { width: 100%; }
     }
 
     &-amount {
@@ -163,5 +195,34 @@
         &:hover { background-color: $light-dark-tertiary-color; }
       }
     }
+  }
+}
+
+.dashboard-report-item {
+  padding-left: 1em;
+  padding-right: 1em;
+  clear: both;
+
+  &-period {
+    @include span-columns(12 of 16);
+    margin-top: 0.5em;
+  }
+
+  &-amount {
+    @include span-columns(4 of 16);
+    font-family: "Bree Serif", serif;
+    font-size: 1.5em;
+  }
+}
+
+.dashboard-filter-input {
+  &-start, &-stop {
+    @include span-columns(6 of 16);
+  }
+
+  &-submit, &-reset {
+    @include span-columns(2 of 16);
+
+    input { width: 100%; padding: 0.5em 0; margin: 0.25em 0;  }
   }
 }

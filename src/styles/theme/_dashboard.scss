@@ -85,6 +85,9 @@
       padding: 0.3em 0;
       @include clearfix;
       border-top: 1px solid $light-dark-main-color;
+      display: block;
+      color: $main-font-color;
+      text-decoration: none;
 
       &:last-child {
         border-bottom: 1px solid $light-dark-main-color;
@@ -130,3 +133,5 @@
     }
   }
 }
+
+.dashboard-reports-item:hover { text-decoration: underline; }

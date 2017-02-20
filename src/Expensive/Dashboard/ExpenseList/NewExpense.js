@@ -11,12 +11,16 @@ export default class NewExpense extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { which: "small", currency: server.defaultCurrency,
-      errors: null, description: "", amount: "", dateTime: moment() };
+    this.state = this.defaultState();
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleDateTimeChange = this.handleDateTimeChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  defaultState() {
+    return { which: "small", currency: server.defaultCurrency,
+      errors: null, description: "", amount: "", dateTime: moment() };
   }
 
   inputsAreDisabled() {
@@ -60,8 +64,7 @@ export default class NewExpense extends React.Component {
   }
 
   handleReset() {
-    this.setState({ which: "small", errors: null, description: "",
-      amount: "", currency: server.defaultCurrency, dateTime: moment() });
+    this.setState(this.defaultState());
   }
 
   render() {
@@ -128,11 +131,12 @@ export default class NewExpense extends React.Component {
       value={this.state.dateTime} placeholder="time" />;
   }
 
-  _submitButton() {
+  _submitButton(noEncapsulate = false) {
     if(this.state.which == "small") { return null; }
+    const className = noEncapsulate ? "" : "dashboard-expense-form";
 
     return (
-      <div className="dashboard-expense-form">
+      <div className={className}>
         <FormErrors errors={this.state.errors} which={this.state.which} />
         <div className="dashboard-expense-form-actions">
           <input type="submit" value="Submit"

@@ -1,6 +1,8 @@
 import React from "react";
 import Root from "Expensive/Dashboard/Root";
 import ExpenseList from "Expensive/Dashboard/ExpenseList";
+import ReportList from "Expensive/Dashboard/ReportList";
+import Report from "Expensive/Dashboard/Report";
 import Sidebar from "Expensive/Dashboard/Sidebar";
 import {authentication} from "Expensive/authentication";
 import {navigation} from "Expensive/navigation";
@@ -41,6 +43,8 @@ export default class Dashboard extends React.Component {
 
 Dashboard.Root = Root;
 Dashboard.ExpenseList = ExpenseList;
+Dashboard.ReportList = ReportList;
+Dashboard.Report = Report;
 Dashboard.propTypes = {
   children: React.PropTypes.node,
   router: React.PropTypes.object.isRequired,

@@ -2,6 +2,7 @@ import React from "react";
 import {AreaChart} from "react-chartkick";
 import Topfigure from "Expensive/Dashboard/Root/Topfigure";
 import ShortExpenseList from "Expensive/Dashboard/Root/ShortExpenseList";
+import ShortReportList from "Expensive/Dashboard/Root/ShortReportList";
 import Spinner from "Expensive/Spinner";
 import Failure from "Expensive/Dashboard/Failure";
 
@@ -39,13 +40,18 @@ export default class Root extends React.Component {
         <Topfigure data={this.state.topfigure} />
         <div className="dashboard-graph">
           <AreaChart data={this.state.graph} colors={["#f7efce"]}
-            fontFamily="'Lato'"
-            library={{scales: {yAxes: [{display: false}]}}}
-            />
+            library={{chart: {backgroundColor: "#327ccb"},
+              xAxis: {labels: {style: {color: "#f7efce"}}},
+              yAxis: {labels: {style: {color: "#f7efce"}}}}}/>
         </div>
         <div className="dashboard-expenses">
           <h1 className="dashboard-expenses-title">Recent Expenses</h1>
           <ShortExpenseList data={this.state.expenses} />
+        </div>
+
+        <div className="dashboard-reports">
+          <h1 className="dashboard-reports-title">Recent Reports</h1>
+          <ShortReportList data={this.state.reports} />
         </div>
 
       </div>
@@ -61,6 +67,7 @@ export default class Root extends React.Component {
           which: "normal",
           topfigure: result.data.topfigure,
           expenses: result.data.expenses,
+          reports: result.data.reports,
           graph: result.data.graph
         });
       })

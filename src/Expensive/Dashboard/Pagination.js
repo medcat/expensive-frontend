@@ -6,7 +6,6 @@ const edgeLinks = 3;
 export default class Pagination extends React.Component {
   get currentPage() { return this.props.pages.current; }
   get totalPages() { return this.props.pages.total; }
-  get pageLinks() { return this.props.pages.links; }
 
   render() {
     if(this.totalPages == 1) return null;
@@ -62,7 +61,9 @@ export default class Pagination extends React.Component {
         {this._innerStartLinks()}
         {_.times(difference, (i) => {
           const page = startWindow + i;
-          return this._linkToPage(page);
+          const className = page == this.currentPage ?
+            "dashboard-pagination-link-primary" : "";
+          return this._linkToPage(page, page, page, className);
         })}
         {this._innerEndLinks()}
       </span>
@@ -107,12 +108,16 @@ export default class Pagination extends React.Component {
   }
 
   _seperator() {
-    return (<i className="dashboard-pagination-seperator">...</i>);
+    return (
+      <span className="dashboard-pagination-seperator">
+        &middot; &middot; &middot;
+      </span>);
   }
 
-  _linkToPage(page, text = page, key = page) {
+  _linkToPage(page, text = page, key = page, className = "") {
+    const actualClass = `dashboard-pagination-link ${className}`
     return (
-      <a data-page={page} key={key} className="dashboard-pagination-link"
+      <a data-page={page} key={key} className={actualClass}
         onClick={(event) => this.props.onChangePage(event, page)}>{text}</a>
     );
   }
@@ -120,7 +125,6 @@ export default class Pagination extends React.Component {
 
 Pagination.propTypes = {
   pages: React.PropTypes.object.isRequired,
-  page: React.PropTypes.number.isRequired,
   onChangePage: React.PropTypes.func.isRequired
 }
 

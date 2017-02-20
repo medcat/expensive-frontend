@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {Router, Route, IndexRoute} from "react-router";
 import Expensive from "Expensive";
-import Chart from "chart.js";
+import Highcharts from "highcharts";
 import "font-awesome/css/font-awesome.css";
 import "index.scss";
 
@@ -17,16 +17,16 @@ function renderBody() {
         <Route path="/dashboard" component={Expensive.Dashboard}>
           <IndexRoute component={Expensive.Dashboard.Root} />
           <Route path="expenses" component={Expensive.Dashboard.ExpenseList} />
+          <Route path="reports" component={Expensive.Dashboard.ReportList} />
+          <Route path="reports/:id" component={Expensive.Dashboard.Report} />
         </Route>
       </Route>
     </Router>
   ), document.getElementById("root"));
 }
 
-Chart.defaults.global.defaultFontColor = "#f7efce";
-Chart.defaults.global.defaultColor = "#f7efce";
-
+window.Highcharts = Highcharts;
 Expensive.authentication.renewToken().then(renderBody, () => {
-  history.push("/");
+  Expensive.navigation.history.push("/");
   renderBody();
 });

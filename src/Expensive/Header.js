@@ -22,7 +22,6 @@ export default class Header extends React.Component {
     return (
       <nav className="header-navigation">
         <Link to="/session/logout" className="header-navigation-link">Logout</Link>
-        <Link to="/settings" className="header-navigation-link">Settings</Link>
         <Link to="/dashboard" className="header-navigation-link">Dashboard</Link>
       </nav>
     );

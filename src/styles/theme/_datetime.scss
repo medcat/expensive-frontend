@@ -8,11 +8,11 @@
 
 .rdtPicker {
   display: none;
-  position: fixed;
+  position: absolute;
   width: 250px;
   padding: 4px;
   margin-top: 1px;
-  z-index: 99999 !important;
+  z-index: 5 !important;
   background: $background-color;
   border-radius: $border-radius;
 

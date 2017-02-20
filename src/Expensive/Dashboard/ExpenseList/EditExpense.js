@@ -6,17 +6,11 @@ import {server} from "Expensive/server";
 import {authentication} from "Expensive/authentication";
 
 export default class EditExpense extends NewExpense {
-  constructor(props) {
-    super(props);
-
-    this.state = { which: "normal", currency: this.props.data.currency,
-      errors: null, description: this.props.data.description,
-      amount: this.props.data.amount, dateTime: moment(this.props.data.time) };
-
-    this.handleUpdate = this.handleUpdate.bind(this);
-    this.handleDateTimeChange = this.handleDateTimeChange.bind(this);
-    this.handleReset = this.handleReset.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  defaultState() {
+    return { which: "normal", errors: null,
+      description: this.props.data.description,
+      amount: this.props.data.amount, currency: server.defaultCurrency,
+      dateTime: moment(this.props.data.time) };
   }
 
   handleSubmit(event) {
@@ -39,13 +33,6 @@ export default class EditExpense extends NewExpense {
       });
   }
 
-  handleReset() {
-    this.setState({ which: "normal", errors: null,
-      description: this.props.data.description,
-      amount: this.props.data.amount, currency: server.defaultCurrency,
-      dateTime: moment(this.props.data.time) });
-  }
-
   render() {
     return (
       <form className="dashboard-expense-form dashboard-expense-input" onSubmit={this.handleSubmit}>
@@ -62,7 +49,7 @@ export default class EditExpense extends NewExpense {
             {this._dateTimeInput()}
           </div>
         </div>
-        {this._submitButton()}
+        {this._submitButton(true)}
       </form>
     );
   }

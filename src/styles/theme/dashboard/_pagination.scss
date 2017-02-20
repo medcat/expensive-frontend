@@ -1,4 +1,4 @@
-.dashboard-pagination {
+.dashboard-pagination, .dashboard-navigation {
   background-color: $background-color;
   box-shadow: $main-shadow;
   margin: 0.5em 0;
@@ -17,7 +17,21 @@
     background-color: $main-color;
     color: $main-font-color;
     border-radius: $border-radius;
+    text-decoration: none;
 
     &:hover { text-decoration: underline; }
+
+    &-passive {
+      background-color: $light-dark-background-color;
+      color: $background-font-color;
+    }
+    &-active {
+      background-color: $main-color;
+      color: $main-font-color;
+    }
+    &-primary {
+      background-color: $secondary-color;
+      color: $secondary-font-color;
+    }
   }
 }
